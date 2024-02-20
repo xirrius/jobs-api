@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  title: jobs-api
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://jobs-api-vomn.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerrequest'
+              - example:
+                  name: ghi
+                  email: ghi@gmail.com
+                  password: ghi
+            example:
+              name: ghi
+              email: ghi@gmail.com
+              password: ghi
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: def@gmail.com
+                  password: def
+            example:
+              email: def@gmail.com
+              password: def
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+      - Jobs
+      summary: create-job
+      operationId: create-job
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/create-job-request'
+              - example:
+                  company: ''
+                  position: ''
+            example:
+              company: 'google'
+              position: 'front end developer'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Jobs
+      summary: get-all-jobs
+      operationId: get-all-jobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job ID
+    get:
+      tags:
+      - Jobs
+      summary: get-job
+      operationId: get-job
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  
+    patch:
+      tags:
+      - Jobs
+      summary: update-job
+      operationId: update-job
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/update-job-request'
+              - example:
+                  company: tesla
+                  position: full stack developer
+                  status: Interview
+            example:
+              company: tesla
+              position: full stack developer
+              status: Interview
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Jobs
+      summary: delete-job
+      operationId: delete-job
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: ghi
+        email: ghi@gmail.com
+        password: ghi
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: def@gmail.com
+        password: def
+    create-job-request:
+      title: create-job-request
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: ''
+        position: ''
+    update-job-request:
+      title: update-job-request
+      required:
+      - company
+      - position
+      - status
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: tesla
+        position: full stack developer
+        status: Interview
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+
+- name: Auth
+  description: ''
+- name: Jobs
+  description: ''
